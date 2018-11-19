@@ -6,4 +6,18 @@
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">iOgOKAQlhmOqjEKFCSCqw5IetaZ12VrOhOUXXuFdrsuYMkAY7b</string>
     <string name="TUMBLR_CONSUMER_KEY">e5Beb3JGNsAsXlP5GfvDMkTGam07ZIaYE0pOWNBy7Tghr3bgUA</string>
     <string name="TUMBLR_CONSUMER_SECRET">7xoJVTxIfE794R7EvPT5NYD99ZZOdVPDRRoSDkLfe0VUYbAjuJ</string>
+    <string name="tumblr_callback_url">https://github.com/masseffect2</string>
+    <string name="INSTAGRAM_CLIENT_ID"> ff89ee49ca054c168270e70483c47bf7</string>
+    <string name="INSTAGRAM_CLIENT_SECRET">0473abf82ccf482dbd4d9259a73ef334</string>
+    <string name="instagram_base_url">https://api.instagram.com/</string>
+    <string name="instagram_redirect_url">https://instagram.com/</string>
+    <!--<string name="instagram_redirect_url">https://github.com/masseffect2</string>-->
+    <string name="get_user_info_url">https://api.instagram.com/v1/users/self/?access_token=</string>
+    <string name="title_activity_sidebar_menu">SidebarMenu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
