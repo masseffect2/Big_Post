@@ -2,16 +2,11 @@ package com.example.william.massposter;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.SyncStateContract;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.textclassifier.TextLinks;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,10 +20,6 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.okhttp.Request;
-import com.tumblr.jumblr.JumblrClient;
-import com.tumblr.loglr.Interfaces.ExceptionHandler;
-import com.tumblr.loglr.Interfaces.LoginListener;
-import com.tumblr.loglr.Loglr;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
@@ -37,32 +28,19 @@ import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-
 
 public class MainActivity extends AppCompatActivity implements AuthListener {
         //implements LoginListener, ExceptionHandler{
 
     TextView txtStatus;
     LoginButton facebookLoginButton;
-    CallbackManager callbackManager;
+    public CallbackManager callbackManager;
     TwitterLoginButton twitterLoginButton;
     private Button instaButton = null;
     private Button logoutButton = null;
@@ -71,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
     private AppPreferences appPreferences = null;
     private View info = null;
     private Toolbar toolbar;
-    private DrawerLayout mDrawer;
+    //private DrawerLayout mDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,26 +64,28 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
         setContentView(R.layout.activity_main);
         initializeControls();
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-        mDrawer = findViewById(R.id.drawer_layout);
+       // mDrawer = findViewById(R.id.drawer_layout);
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         txtStatus.setText("Login successful\n"+loginResult.getAccessToken());
+                        Toast.makeText(MainActivity.this, "Logged in to Facebook", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onCancel() {
-                        txtStatus.setText("Login cancelled");
+                        Toast.makeText(MainActivity.this, "Login cancelled", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        txtStatus.setText("Login error: "+exception.getMessage());
+                        Toast.makeText(MainActivity.this, "Login failed. Verify the correct credentials have been entered "
+                                + exception, Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -133,49 +113,74 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
             getUserInfoByAccessToken(instaToken);
         }
 
-//        logoutButton = findViewById(R.id.instgramLogoutButton);
-//        logoutButton.setOnClickListener(this);
+        logoutButton = findViewById(R.id.gotoPostPage);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PostPage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // The action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-//
 //    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        findViewById(R.id.tumblrLoginButton).setOnClickListener(clickListener);
-//    }
-//
-//    private View.OnClickListener clickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Loglr.getInstance()
-//                    .setConsumerKey("sdJk9ZkYwCHLvAir7JHNVP19ioUvpdFv8H0W1T1TGw1hqEjq13")
-//                    .setConsumerSecretKey("APwuoDYsScGZn75ceyNOa05djM9aT0cFRNaSmgbc2JDmFKutBU")
-//                    .setUrlCallBack(getResources().getString(R.string.tumblr_callback_url))
-//                   // .setLoadingDialog(LoadingDialog.class)
-//                    .setLoginListener(MainActivity.this)
-//                    .setExceptionHandler(MainActivity.this)
-//                    .enable2FA(true)
-//                    .initiateInActivity(MainActivity.this);
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // The action bar home/up action should open or close the drawer.
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                mDrawer.openDrawer(GravityCompat.START);
+//                return true;
 //        }
-//    };
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
+//    public void selectDrawerItem(MenuItem menuItem) {
+//        // Create a new fragment and specify the fragment to show based on nav item clicked
+//        Fragment fragment = null;
+//        Class fragmentClass;
+//        switch(menuItem.getItemId()) {
+//            case R.id.nav_post:
+//                //fragmentClass = FirstFragment.class;
+//                Intent intent = new Intent(MainActivity.this, PostPage.class);
+//                startActivity(intent);
+//                break;
+//            case R.id.nav_manage:
+//                Intent intent2 = new Intent(MainActivity.this, MainActivity.class);
+//                startActivity(intent2);
+//                //fragmentClass = SecondFragment.class;
+//                break;
+//        }
+//
+////        try {
+////            fragment = (Fragment) fragmentClass.newInstance();
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//
+//        // Insert the fragment by replacing any existing fragment
+////        FragmentManager fragmentManager = getSupportFragmentManager();
+////        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//
+//        // Highlight the selected item has been done by NavigationView
+//        menuItem.setChecked(true);
+//        // Set action bar title
+//        setTitle(menuItem.getTitle());
+//        // Close the navigation drawer
+//        mDrawer.closeDrawers();
+//    }
+////
+////    @Override
+////    protected void onResume() {
+////        super.onResume();
+////        findViewById(R.id.tumblrLoginButton).setOnClickListener(clickListener);
+////    }
+////
 
     //this login method for Instagram changes the button text
     public void instaLogin() {
-        //instaButton.setText("LOGOUT");
+        //instaButton.setText("Instagram Logout");
         //info.setVisibility(View.VISIBLE);
         ImageView pic = findViewById(R.id.pic);
         Picasso.with(this).load(appPreferences.getString(AppPreferences.PROFILE_PIC)).into(pic);
@@ -188,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
     }
 
     public void logout() {
-        //instaButton.setText("INSTAGRAM LOGIN");
+        //instaButton.setText("Instagram Logout");
         instaToken = null;
         info.setVisibility(View.GONE);
         appPreferences.clear();
@@ -213,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //callbackManager.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         twitterLoginButton.onActivityResult(requestCode, resultCode, data);
     }
@@ -256,14 +261,8 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
             Request request = new Request.Builder()
                     .url(getResources().getString(R.string.get_user_info_url) + instaToken)
                     .build();
-
-//            HttpClient httpClient = new DefaultHttpClient();
-//            HttpGet httpGet = new HttpGet(getResources().getString(R.string.get_user_info_url) + instaToken);
             try {
                 com.squareup.okhttp.Response response = client.newCall(request).execute();
-
-//                org.apache.http.HttpResponse response = httpClient.execute(httpGet);
-                //HttpEntity httpEntity = response.getEntity();
                 return response.body().string();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -296,6 +295,10 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
                 toast.show();
             }
         }
+    }
+
+    public CallbackManager getCallbackManager() {
+        return callbackManager;
     }
 
 }

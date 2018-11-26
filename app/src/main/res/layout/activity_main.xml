@@ -40,22 +40,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Hello World" />
-
-    <Button
-        android:id="@+id/tumblrLoginButton"
-        android:layout_width="196dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Login with Tumblr"
+        android:text="Hello World"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/twitterLoginButton"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.267" />
 
     <Button
         android:id="@+id/instagramLoginButton"
@@ -75,46 +70,54 @@
 
     <LinearLayout
         android:id="@+id/info"
-        android:layout_width="wrap_content"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tumblrLoginButton"
-        android:orientation="vertical">
+        android:layout_below="@+id/twitterLoginButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/twitterLoginButton"
+        app:layout_constraintVertical_bias="0.565">
+
         <ImageView
             android:id="@+id/pic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nvView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/white"
-        app:menu="@menu/activity_sidebar_menu_drawer" />
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/nvView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:background="@android:color/white"-->
+        <!--app:menu="@menu/activity_sidebar_menu_drawer" />-->
 
     <Button
-        android:id="@+id/instgramLogoutButton"
+        android:id="@+id/gotoPostPage"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:onClick="onClick"
-        android:text="Logout"
+        android:text="Make a Post"
         app:layout_constraintBottom_toTopOf="@+id/instagramLoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

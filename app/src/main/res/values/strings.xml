@@ -2,11 +2,14 @@
     <string name="app_name">MassPoster</string>
     <string name="facebook_app_id">244463106203043</string>
     <string name="fb_login_protocol_scheme">fb244463106203043</string>
+
     <string name="com.twitter.sdk.android.CONSUMER_KEY">zK2IjEztxnE4LnhR9K9znPurG</string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">iOgOKAQlhmOqjEKFCSCqw5IetaZ12VrOhOUXXuFdrsuYMkAY7b</string>
+
     <string name="TUMBLR_CONSUMER_KEY">e5Beb3JGNsAsXlP5GfvDMkTGam07ZIaYE0pOWNBy7Tghr3bgUA</string>
     <string name="TUMBLR_CONSUMER_SECRET">7xoJVTxIfE794R7EvPT5NYD99ZZOdVPDRRoSDkLfe0VUYbAjuJ</string>
     <string name="tumblr_callback_url">https://github.com/masseffect2</string>
+
     <string name="INSTAGRAM_CLIENT_ID"> ff89ee49ca054c168270e70483c47bf7</string>
     <string name="INSTAGRAM_CLIENT_SECRET">0473abf82ccf482dbd4d9259a73ef334</string>
     <string name="instagram_base_url">https://api.instagram.com/</string>
@@ -20,4 +23,9 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_post_page2">PostPage2</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

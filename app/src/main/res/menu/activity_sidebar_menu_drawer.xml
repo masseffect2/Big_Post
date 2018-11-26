@@ -5,10 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_post"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Make a Post"
-            android:checked="true"/>
+            android:title="Make a Post"  />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"

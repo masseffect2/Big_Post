@@ -40,10 +40,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostPage" />
-        <activity
-            android:name=".SidebarMenu"
-            android:label="@string/title_activity_sidebar_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{244463106203043}"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>
