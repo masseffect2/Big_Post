@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
     public CallbackManager callbackManager;
     TwitterLoginButton twitterLoginButton;
     private Button instaButton = null;
-    private Button logoutButton = null;
+    private Button postPageButton = null;
     private String instaToken = null;
     private AuthInstagram authInstagram = null;
     private AppPreferences appPreferences = null;
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
             getUserInfoByAccessToken(instaToken);
         }
 
-        logoutButton = findViewById(R.id.gotoPostPage);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        postPageButton = findViewById(R.id.gotoPostPage);
+        postPageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PostPage.class);
                 startActivity(intent);
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements AuthListener {
         ImageView pic = findViewById(R.id.pic);
         Picasso.with(this).load(appPreferences.getString(AppPreferences.PROFILE_PIC)).into(pic);
         TextView id = findViewById(R.id.id);
-        id.setText(appPreferences.getString(AppPreferences.USER_ID));
+        id.setText("Instagram: " + appPreferences.getString(AppPreferences.USER_ID));
         TextView name = findViewById(R.id.name);
         name.setText(appPreferences.getString(AppPreferences.USER_NAME));
 //        Intent intent = new Intent(MainActivity.this, PostPage.class);

@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
@@ -17,18 +17,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.model.ShareMediaContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ImageFragment extends Fragment {
 
@@ -39,7 +40,9 @@ public class ImageFragment extends Fragment {
     private CheckBox facebookCheck;
     private CheckBox twitterCheck;
     private CheckBox instagramCheck;
-    private Uri selectedImage;
+    private ImageView picPrev;
+    private Uri imageUri;
+    private Bitmap bitmap;
     private static int RESULT_LOAD_IMAGE = 1;
     private ShareButton btnFacebookPost;
 
@@ -54,34 +57,35 @@ public class ImageFragment extends Fragment {
         twitterCheck = view.findViewById(R.id.chkTwitter);
         instagramCheck = view.findViewById(R.id.chkInstagram);
         btnFacebookPost = view.findViewById(R.id.btnFacebookPost);
+        picPrev = view.findViewById(R.id.imagePreview);
 
         btnImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(gallery, RESULT_LOAD_IMAGE);
-                selectedImage = gallery.getData();
-// File path = Environment.getExternalStoragePublicDirectory(
-//                        Environment.DIRECTORY_PICTURES);
-//                file = new File(path, "uploaded_image");
             }
         });
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (!selectedImage.getPath().isEmpty()) {
+                if (!imageUri.getPath().isEmpty()) {
                     if (twitterCheck.isChecked()) {
+                    try {
                         ((PostPage) getActivity()).testMethod(message);
                         final TwitterSession session = TwitterCore.getInstance().getSessionManager()
                                 .getActiveSession();
                         final Intent intent = new ComposerActivity.Builder(getActivity())
                                 .session(session)
-                                .image(selectedImage)
-                                .hashtags("#twitter")
+                                .image(imageUri)
                                 .createIntent();
                         startActivity(intent);
+                    } catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                     }
                     if (facebookCheck.isChecked()) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(selectedImage.getPath());
+                        File file = new File(imageUri.getPath());
+                        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
                         SharePhoto photo = new SharePhoto.Builder()
                                 .setBitmap(bitmap)
                                 .build();
@@ -96,6 +100,40 @@ public class ImageFragment extends Fragment {
                 }
             }
         });
+
+
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_LOAD_IMAGE) {
+            imageUri = data.getData();
+            Picasso.with(getActivity()).load(imageUri).into(picPrev);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            picPrev.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        if (savedInstanceState != null) {
+//
+//        }
+//    }
+//
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        outState.putParcelable("imageUri", imageUri);
+//    }
+
 }

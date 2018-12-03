@@ -46,21 +46,26 @@ public class TextFragment extends Fragment {
         twitterCheck = view.findViewById(R.id.chkTwitter);
         instagramCheck = view.findViewById(R.id.chkInstagram);
 
-//        btnFacebookPost.setVisibility(View.INVISIBLE);
+
         btnPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 message = textBox.getText().toString();
                 if(!message.isEmpty()) {
                     if(twitterCheck.isChecked()) {
-                    ((PostPage) getActivity()).testMethod(message);
-                    final TwitterSession session = TwitterCore.getInstance().getSessionManager()
-                            .getActiveSession();
-                    final Intent intent = new ComposerActivity.Builder(getActivity())
-                            .session(session)
-                            .text(message)
-                            .hashtags("#twitter")
-                            .createIntent();
-                    startActivity(intent);
+                        if(message.length() < 281) {
+                            ((PostPage) getActivity()).testMethod(message);
+                            final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+                                    .getActiveSession();
+                            final Intent intent = new ComposerActivity.Builder(getActivity())
+                                    .session(session)
+                                    .text(message)
+                                    .hashtags("#test")
+                                    .createIntent();
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getActivity(), "Message must be under 280 characters"
+                                    , Toast.LENGTH_LONG).show();
+                        }
                     }
                     if(facebookCheck.isChecked()) {
                         ShareLinkContent content = new ShareLinkContent.Builder()
@@ -84,12 +89,6 @@ public class TextFragment extends Fragment {
             }
         });
         return view;
-    }
-
-    public void onClick(String message, View view){
-
-
-
     }
 
 }

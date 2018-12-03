@@ -10,11 +10,12 @@
         android:id="@+id/imageToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/com_facebook_blue"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Image Post" />
+        app:title="Image Post"
+        app:titleTextColor="@color/com_facebook_button_background_color_focused" />
 
     <Button
         android:id="@+id/postButtonImage"
@@ -23,30 +24,32 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="324dp"
+        android:layout_marginBottom="8dp"
         android:text="Post!"
+        android:textColor="@color/text_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintHorizontal_bias="0.802"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.123" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="71dp"
-        android:layout_height="69dp"
+        android:id="@+id/imagePreview"
+        android:layout_width="157dp"
+        android:layout_height="163dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="Upload an @string/com_facebook_image_download_unknown_error"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="0.093"
+        app:layout_constraintVertical_bias="0.741"
         app:srcCompat="@drawable/ic_menu_gallery" />
 
     <ImageButton
@@ -59,10 +62,10 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        app:layout_constraintHorizontal_bias="0.262"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="0.299"
+        app:layout_constraintVertical_bias="0.13"
         app:srcCompat="@drawable/ic_menu_camera" />
 
     <CheckBox
@@ -79,7 +82,7 @@
         app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="0.438" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <CheckBox
         android:id="@+id/chkTwitter"
@@ -92,10 +95,10 @@
         android:text="Twitter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.748"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="0.438" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <CheckBox
         android:id="@+id/chkInstagram"
@@ -111,7 +114,7 @@
         app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toEndOf="@+id/chkTwitter"
         app:layout_constraintTop_toBottomOf="@+id/imageToolbar"
-        app:layout_constraintVertical_bias="0.438" />
+        app:layout_constraintVertical_bias="0.282" />
 
     <com.facebook.share.widget.ShareButton
         android:id="@+id/btnFacebookPost"
@@ -123,8 +126,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chkTwitter"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.027" />
 </android.support.constraint.ConstraintLayout>
